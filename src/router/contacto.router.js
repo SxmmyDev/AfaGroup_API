@@ -10,7 +10,7 @@ router.get("/contacto/", async (req, res) => {
     })
 })
 
-router.get("/contacto/:contacto_id", async (req, res) => {
+router.get("/contacto/:contacto_id/", async (req, res) => {
     const id = req.params.contacto_id;
     const contacto = await Contacto.findOne({
         where: {
@@ -24,7 +24,7 @@ router.get("/contacto/:contacto_id", async (req, res) => {
     })
 })
 
-router.post("/contacto", async (req, res) => {
+router.post("/contacto/", async (req, res) => {
     try{
         await Contacto.sync();
         const {nombre_usuario, correo_usuario, numero_usuario, ciudad_usuario,

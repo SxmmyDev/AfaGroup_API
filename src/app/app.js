@@ -1,9 +1,15 @@
 const express = require('express');
 const morgan = require('morgan'); //antes de las rutas para que lea las petciones http
-
+const cors = require('cors');
 const router = require('../router');
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:4200', // Permitir solo Angular
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 //muy importante
 app.use(express.json());

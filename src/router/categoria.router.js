@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Categoria = require('../model/categoria.model')
 
-router.get("/categoria", async (req, res) => {
+router.get("/categoria/", async (req, res) => {
     const categoria = await Categoria.findAll()
     res.status(200).json({
         ok: true,
@@ -10,7 +10,7 @@ router.get("/categoria", async (req, res) => {
     })
 })
 
-router.get("/categoria/:categoria_id", async (req, res) => {
+router.get("/categoria/:categoria_id/", async (req, res) => {
     const id = req.params.categoria_id;
     const categoria = await Categoria.findOne({
         where: {
@@ -24,7 +24,7 @@ router.get("/categoria/:categoria_id", async (req, res) => {
     })
 })
 
-router.post("/categoria", async (req, res) => {
+router.post("/categoria/", async (req, res) => {
     try {
         await Categoria.sync();
 
@@ -50,7 +50,7 @@ router.post("/categoria", async (req, res) => {
     }
 });
 
-router.put("/categoria/:categoria_id", async (req, res) => {
+router.put("/categoria/:categoria_id/", async (req, res) => {
     const id = req.params.categoria_id;
     const dataCategoria = req.body
     const categoriaEdit = await Categoria.update({
@@ -68,7 +68,7 @@ router.put("/categoria/:categoria_id", async (req, res) => {
     })
 })
 
-router.delete("/categoria/:categoria_id", async (req, res) => {
+router.delete("/categoria/:categoria_id/", async (req, res) => {
     const id = req.params.categoria_id;
     const deleteCategory = await Categoria.destroy({
         where: {
