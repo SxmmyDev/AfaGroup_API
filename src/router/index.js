@@ -5,6 +5,7 @@ const contactoRouter = require('./contacto.router');
 const clienteRouter = require('./cliente.router');
 const productoRouter = require('./producto.router');
 const puntoVRouter = require('./punto_venta.router');
+const productRouter = require('./productoAG.router');
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use('/', contactoRouter);
 router.use('/', clienteRouter);
 router.use('/', productoRouter);
 router.use('/', puntoVRouter);
+router.use('/', productRouter);
 
 module.exports = router;

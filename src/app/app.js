@@ -21,5 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/", router)
+// En app.js
+app.use('/uploads', express.static('uploads'));
 
 module.exports = app;
