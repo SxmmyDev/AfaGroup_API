@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.get("/productoAG", async(req, res) => {
+router.get("/productoAG/", async(req, res) => {
     const producto = await ProductoAG.findAll()
     res.status(200).json({
         ok: true,
@@ -24,7 +24,7 @@ router.get("/productoAG", async(req, res) => {
     })
 });
 
-router.get("/productoAG/:producto_id", async(req, res) => {
+router.get("/productoAG/:producto_id/", async(req, res) => {
     const id = req.params.producto_id;
     const producto = await ProductoAG.findOne({
         where: {
@@ -38,7 +38,7 @@ router.get("/productoAG/:producto_id", async(req, res) => {
     })
 });
 
-router.post("/productoAG", upload.single('imagen_url'), async (req, res) => {
+router.post("/productoAG/", upload.single('imagen_url'), async (req, res) => {
     try {
         await ProductoAG.sync();
 
@@ -65,34 +65,88 @@ router.post("/productoAG", upload.single('imagen_url'), async (req, res) => {
     }
 });
 
-router.put("/productoAG/:producto_id", async (req, res) => {
-    const id = req.params.producto_id;
-    const dataProducto = req.body
-    const producto_edit = await ProductoAG.update({
-        categoria_id: dataProducto.categoria_id,
-        nombre_producto: dataProducto.nombre_producto,
-        codigo_sunat: dataProducto.codigo_sunat,
-        tipo_producto: dataProducto.tipo_producto,
-        tipo_existencia: dataProducto.tipo_existencia,
-        compra: dataProducto.compra,
-        kardex: dataProducto.kardex,
-        nombre_comercial: dataProducto.nombre_comercial,
-        stock_minimo: dataProducto.stock_minimo,
-        stock_maximo: dataProducto.stock_maximo,
-        peso: dataProducto.peso
-    }, {
-        where: {
-            producto_id: id
+// router.put("/productoAG/:producto_id/", async (req, res) => {
+//     const id = req.params.producto_id;
+//     const dataProducto = req.body
+//     const producto_edit = await ProductoAG.update({
+//         categoria_id: dataProducto.categoria_id,
+//         nombre_producto: dataProducto.nombre_producto,
+//         codigo_sunat: dataProducto.codigo_sunat,
+//         tipo_producto: dataProducto.tipo_producto,
+//         tipo_existencia: dataProducto.tipo_existencia,
+//         compra: dataProducto.compra,
+//         kardex: dataProducto.kardex,
+//         nombre_comercial: dataProducto.nombre_comercial,
+//         stock_minimo: dataProducto.stock_minimo,
+//         stock_maximo: dataProducto.stock_maximo,
+//         peso: dataProducto.peso
+//     }, {
+//         where: {
+//             producto_id: id
+//         }
+//     });
+//     res.status(200).json({
+//         ok: true,
+//         status: 200,
+//         body: producto_edit
+//     })
+// });
+
+router.put("/productoAG/:producto_id/", upload.single('imagen_url'), async (req, res) => {
+    try {
+        const id = req.params.producto_id;
+        const dataProducto = req.body;
+
+        // Verificar si el producto existe
+        const producto = await ProductoAG.findByPk(id);
+        if (!producto) {
+            return res.status(404).json({
+                ok: false,
+                status: 404,
+                message: "Producto no encontrado"
+            });
         }
-    });
-    res.status(200).json({
-        ok: true,
-        status: 200,
-        body: producto_edit
-    })
+
+        // Si se sube una nueva imagen, actualizar la URL
+        const imagen_url = req.file ? `http://localhost:3000/uploads/${req.file.filename}` : producto.imagen_url;
+
+        // Actualizar el producto
+        await ProductoAG.update({
+            categoria_id: dataProducto.categoria_id,
+            nombre_producto: dataProducto.nombre_producto,
+            codigo_sunat: dataProducto.codigo_sunat,
+            tipo_producto: dataProducto.tipo_producto,
+            tipo_existencia: dataProducto.tipo_existencia,
+            compra: dataProducto.compra,
+            kardex: dataProducto.kardex,
+            nombre_comercial: dataProducto.nombre_comercial,
+            stock_minimo: dataProducto.stock_minimo,
+            stock_maximo: dataProducto.stock_maximo,
+            peso: dataProducto.peso,
+            imagen_url: imagen_url
+        }, {
+            where: { producto_id: id }
+        });
+
+        // Obtener el producto actualizado
+        const producto_actualizado = await ProductoAG.findByPk(id);
+
+        res.status(200).json({
+            ok: true,
+            status: 200,
+            message: "Producto actualizado correctamente",
+            body: producto_actualizado
+        });
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            message: "Error al actualizar producto",
+            error: error.message
+        });
+    }
 });
 
-router.delete("/productoAG/:producto_id", async (req, res) => {
+router.delete("/productoAG/:producto_id/", async (req, res) => {
     const id = req.params.producto_id;
     const deleteProducto = await ProductoAG.destroy({
         where: {
