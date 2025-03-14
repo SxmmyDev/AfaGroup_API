@@ -56,7 +56,6 @@ Cliente.init({
             }
         }
     },
-    
     nombre_persona: {
         type: DataTypes.STRING,
         allowNull: true,

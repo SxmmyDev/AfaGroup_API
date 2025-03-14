@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Cliente = require('../model/cliente.model')
 
-router.get("/cliente", async (req, res) => {
+router.get("/cliente/", async (req, res) => {
     const cliente = await Cliente.findAll()
     res.status(200).json({
         ok: true,
@@ -10,7 +10,7 @@ router.get("/cliente", async (req, res) => {
     })
 });
 
-router.get("/cliente/:cliente_id", async (req, res) => {
+router.get("/cliente/:cliente_id/", async (req, res) => {
     const id = req.params.cliente_id;
     const cliente = await Cliente.findOne({
         where: {
@@ -24,7 +24,7 @@ router.get("/cliente/:cliente_id", async (req, res) => {
     })
 });
 
-router.post("/cliente", async (req, res) => {
+router.post("/cliente/", async (req, res) => {
     try{
         await Cliente.sync();
 
@@ -49,7 +49,7 @@ router.post("/cliente", async (req, res) => {
     }
 });
 
-router.put("/cliente/cliente_id", async (req, res) => {
+router.put("/cliente/cliente_id/", async (req, res) => {
     const id = req.params.cliente_id;
     const dataCliente = req.body
     const clienteEdit = await Cliente.update({
@@ -76,7 +76,7 @@ router.put("/cliente/cliente_id", async (req, res) => {
     })
 });
 
-router.delete("/cliente/cliente_id", async (req, res) => {
+router.delete("/cliente/cliente_id/", async (req, res) => {
     const id = req.params.cliente_id;
     const deleteCliente = await Cliente.destroy({
         where: {

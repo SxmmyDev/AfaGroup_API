@@ -42,12 +42,12 @@ router.post("/productoAG/", upload.single('imagen_url'), async (req, res) => {
     try {
         await ProductoAG.sync();
 
-        const {categoria_id, nombre_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_minimo,stock_maximo, peso } = req.body;
+        const {categoria_id, nombre_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_minimo,stock_maximo, peso, precio } = req.body;
 
         const imagen_url = req.file ? `http://localhost:3000/uploads/${req.file.filename}` : null;
 
         const createProducto = await ProductoAG.create({
-            categoria_id, nombre_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_minimo,stock_maximo, peso, imagen_url
+            categoria_id, nombre_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_minimo,stock_maximo, peso, imagen_url, precio
         });
 
         res.status(201).json({
@@ -123,7 +123,8 @@ router.put("/productoAG/:producto_id/", upload.single('imagen_url'), async (req,
             stock_minimo: dataProducto.stock_minimo,
             stock_maximo: dataProducto.stock_maximo,
             peso: dataProducto.peso,
-            imagen_url: imagen_url
+            imagen_url: imagen_url,
+            precio: dataProducto.precio,
         }, {
             where: { producto_id: id }
         });

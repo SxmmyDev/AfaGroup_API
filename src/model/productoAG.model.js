@@ -72,7 +72,10 @@ productoAG.init({
         type: DataTypes.STRING, // Guardará la URL de la imagen
         allowNull: true
     },    
-    
+    precio: { 
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
 }, {
     sequelize,
     modelName: 'productoAG'

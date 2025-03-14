@@ -24,6 +24,10 @@ Cotizacion.init({
         allowNull: false,
         defaultValue: DataTypes.NOW
     },
+    tipo_cambio: { 
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
     punto_venta:{
         type: DataTypes.UUID,
         allowNull: false,
@@ -40,22 +44,27 @@ Cotizacion.init({
             key: 'cliente_id'
         }
     },
+
     forma_pago: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    modena : {
+    dias_oferta: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    moneda : {
         type: DataTypes.STRING,
         allowNull: false
     },
-    vendedor : {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Vendedor, 
-            key: 'user_id'
-        }
-    }
+    // vendedor : {
+    //     type: DataTypes.UUID,
+    //     allowNull: false,
+    //     references: {
+    //         model: Vendedor, 
+    //         key: 'user_id'
+    //     }
+    // }
 
 })
 
