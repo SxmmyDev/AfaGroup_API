@@ -1,7 +1,6 @@
 const { Sequelize, Model, DataTypes } = require("sequelize")
 
 const sequelize = require('../db/connection'); // Importar la conexión
-const productoAG = require('../model/productoAG.model');
 
 class Carrito extends Model{}
 
@@ -11,56 +10,41 @@ Carrito.init({
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    producto_id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: productoAG, 
-            key: 'producto_id'
-        }
+    productos: {
+        type: DataTypes.JSON, // Guarda los productos como un array en formato JSON
+        allowNull: false
     },
-    cantidad: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    nombre_cliente: {
+    nombre: {
         type: DataTypes.STRING,
-        allowNull: true
-    },
-    telefono: {
-        type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     dni: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     ruc: {
         type: DataTypes.STRING,
-        allowNull: true
-    },
-    correo: {
-        type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     ocupacion: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    telefono: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     direccion: {
         type: DataTypes.STRING,
-        allowNull: true
-    },
-    estado: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
+        allowNull: false
+    }
 }, {
     sequelize,
     modelName: 'Carrito'
 });
-
-Carrito.belongsTo(productoAG, { foreignKey: 'producto_id' });
-productoAG.hasMany(Carrito, { foreignKey: 'producto_id' });
 
 module.exports = Carrito;

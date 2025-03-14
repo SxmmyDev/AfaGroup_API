@@ -25,29 +25,47 @@ router.get("/carrito/:carrito_id/", async (req, res) => {
 });
 
 router.post("/carrito/", async (req, res) => {
-    try{
+    try {
         await Carrito.sync();
 
-        const {producto_id,cantidad, nombre_cliente, telefono, dni, ruc, correo, ocupacion, direccion, estado} = req.body;
+        const { 
+            productos, 
+            nombre, 
+            dni, 
+            ruc, 
+            ocupacion, 
+            email, 
+            telefono, 
+            direccion 
+        } = req.body;
 
+        // Crear el carrito con la estructura actual
         const createCarrito = await Carrito.create({
-            producto_id,cantidad, nombre_cliente, telefono, dni, ruc, correo, ocupacion, direccion, estado
+            productos,        // Array de productos en formato JSON
+            nombre,           // Nombre del cliente
+            dni,              // DNI del cliente
+            ruc,              // RUC del cliente
+            ocupacion,        // Ocupación del cliente
+            email,            // Correo electrónico
+            telefono,         // Teléfono del cliente
+            direccion         // Dirección del cliente
         });
 
         res.status(201).json({
             ok: true,
             status: 201,
             message: "Carrito created successfully",
-            user: createCarrito
+            carrito: createCarrito
         });
-    } catch(error){
+    } catch (error) {
         res.status(500).json({
             ok: false,
-            message: "Error al crear usuario",
+            message: "Error al crear carrito",
             error: error.message
         });
     }
 });
+
 
 router.put("/carrito/:carrito_id/", async (req, res) => {
     const id = req.params.carrito_id;
