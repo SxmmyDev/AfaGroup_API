@@ -14,6 +14,10 @@ Carrito.init({
         type: DataTypes.JSON, // Guarda los productos como un array en formato JSON
         allowNull: false
     },
+    empresa: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     nombre: {
         type: DataTypes.STRING,
         allowNull: false
@@ -24,7 +28,7 @@ Carrito.init({
     },
     ruc: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     ocupacion: {
         type: DataTypes.STRING,

@@ -29,7 +29,8 @@ router.post("/carrito/", async (req, res) => {
         await Carrito.sync();
 
         const { 
-            productos, 
+            productos,
+            empresa,
             nombre, 
             dni, 
             ruc, 
@@ -42,6 +43,7 @@ router.post("/carrito/", async (req, res) => {
         // Crear el carrito con la estructura actual
         const createCarrito = await Carrito.create({
             productos,        // Array de productos en formato JSON
+            empresa,
             nombre,           // Nombre del cliente
             dni,              // DNI del cliente
             ruc,              // RUC del cliente
@@ -72,6 +74,7 @@ router.put("/carrito/:carrito_id/", async (req, res) => {
     const dataCarrito = req.body
     const carritoEdit = await Carrito.update({
         producto_id: dataCarrito.producto_id,
+        empresa: dataCarrito.empresa,
         cantidad: dataCarrito.cantidad,
         nombre_cliente: dataCarrito.nombre_cliente,
         telefono: dataCarrito.telefono,
