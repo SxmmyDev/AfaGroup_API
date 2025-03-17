@@ -5,7 +5,8 @@ const contactoRouter = require('./contacto.router');
 const clienteRouter = require('./cliente.router');
 const puntoVRouter = require('./punto_venta.router');
 const productRouter = require('./productoAG.router');
-const carritoRouter = require('./carrito.router')
+const carritoRouter = require('./carrito.router');
+const cotizacionWeb = require('./cotizacionWeb.router');
 
 const router = express.Router();
 
@@ -17,5 +18,6 @@ router.use('/', clienteRouter);
 router.use('/', puntoVRouter);
 router.use('/', productRouter);
 router.use('/', carritoRouter);
+router.use('/', cotizacionWeb);
 
 module.exports = router;
