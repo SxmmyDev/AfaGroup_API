@@ -1,6 +1,6 @@
 const express = require('express');
 const categoriaRouter = require('./categoria.router');
-const usuariosRouter = require('./usuarios.router');
+const usuariosRouter = require('./user.router');
 const contactoRouter = require('./contacto.router');
 const clienteRouter = require('./cliente.router');
 const puntoVRouter = require('./punto_venta.router');

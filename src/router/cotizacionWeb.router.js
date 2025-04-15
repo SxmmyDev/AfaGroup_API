@@ -30,6 +30,8 @@ router.post("/cotizacionw/", async (req, res) => {
 
         const { 
             periodo,
+            serie,
+            numero,
             fecha,
             tipo_cambio,
             punto_venta,
@@ -51,6 +53,8 @@ router.post("/cotizacionw/", async (req, res) => {
         // Create the CotizacionWeb entry with the new structure
         const createCotizacion = await CotizacionWeb.create({
             periodo,              // Periodo
+            serie,
+            numero,
             fecha,                // Fecha
             tipo_cambio,          // Tipo de cambio
             punto_venta,          // Punto de venta
@@ -91,6 +95,8 @@ router.put("/cotizacionw/:id/", async (req, res) => {
     const dataCotizacion = req.body
     const carritoEdit = await Carrito.update({
         periodo: dataCotizacion.periodo,                // Update periodo
+        serie: dataCotizacion.serie,
+        numero: dataCotizacion.numero,
         fecha: dataCotizacion.fecha,                    // Update fecha
         tipo_cambio: dataCotizacion.tipo_cambio,        // Update tipo_cambio
         punto_venta: dataCotizacion.punto_venta,        // Update punto_venta
@@ -121,7 +127,7 @@ router.put("/cotizacionw/:id/", async (req, res) => {
 
 router.delete("/cotizacionw/:id/", async (req, res) => {
     const id = req.params.id;
-    const deleteCarrito = await Carrito.destroy({
+    const deleteCarrito = await CotizacionWeb.destroy({
         where: {
             id: id
         }

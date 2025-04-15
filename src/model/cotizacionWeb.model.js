@@ -14,6 +14,17 @@ CotizacionWeb.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    serie: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "001"
+    },
+    numero: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+        defaultValue: 1  // Si no hay registros, empieza en 1
+    },    
     fecha: {
         type: DataTypes.STRING,
         allowNull: false
@@ -82,5 +93,14 @@ CotizacionWeb.init({
     sequelize,
     modelName: 'CotizacionWeb'
 });
+
+CotizacionWeb.beforeCreate(async (cotizacion, options) => {
+    const lastCotizacion = await CotizacionWeb.findOne({
+        order: [['numero', 'DESC']]
+    });
+
+    cotizacion.numero = lastCotizacion ? lastCotizacion.numero + 1 : 1;
+});
+
 
 module.exports = CotizacionWeb;
