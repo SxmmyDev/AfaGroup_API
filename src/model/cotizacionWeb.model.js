@@ -73,10 +73,6 @@ CotizacionWeb.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    vendedor_trabajador: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     observaciones: {
         type: DataTypes.STRING,
         allowNull: true
@@ -88,6 +84,23 @@ CotizacionWeb.init({
     total_precio_productos: {
         type: DataTypes.FLOAT, 
         allowNull: false
+    },
+    estado: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'PENDIENTE' // Valores posibles: PENDIENTE, EN_PROCESO, FINALIZADO
+    },
+    vendedor_asignado_id: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    fecha_asignacion: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    fecha_finalizacion: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,

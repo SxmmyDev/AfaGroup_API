@@ -44,10 +44,13 @@ router.post("/cotizacionw/", async (req, res) => {
             forma_pago,
             dias_ofertas,
             moneda,
-            vendedor_trabajador,
             observaciones,
             productos,
-            total_precio_productos
+            total_precio_productos,
+            estado,
+            vendedor_asignado_id,
+            fecha_asignacion,
+            fecha_finalizacion
         } = req.body;
 
         // Create the CotizacionWeb entry with the new structure
@@ -67,10 +70,13 @@ router.post("/cotizacionw/", async (req, res) => {
             forma_pago,           // Forma de pago
             dias_ofertas,         // Días de ofertas
             moneda,               // Moneda
-            vendedor_trabajador,  // Vendedor o trabajador
             observaciones,        // Observaciones
             productos,            // Productos (en formato JSON)
-            total_precio_productos // Total del precio de los productos
+            total_precio_productos, // Total del precio de los productos
+            estado,
+            vendedor_asignado_id,
+            fecha_asignacion,
+            fecha_finalizacion
         });
 
         // Return a successful response
@@ -109,10 +115,13 @@ router.put("/cotizacionw/:id/", async (req, res) => {
         forma_pago: dataCotizacion.forma_pago,          // Update forma_pago
         dias_ofertas: dataCotizacion.dias_ofertas,      // Update dias_ofertas
         moneda: dataCotizacion.moneda,                  // Update moneda
-        vendedor_trabajador: dataCotizacion.vendedor_trabajador, // Update vendedor_trabajador
         observaciones: dataCotizacion.observaciones,    // Update observaciones
         productos: dataCotizacion.productos,            // Update productos (JSON array)
-        total_precio_productos: dataCotizacion.total_precio_productos
+        total_precio_productos: dataCotizacion.total_precio_productos,
+        estado: dataCotizacion.estado,
+        vendedor_asignado_id: dataCotizacion.vendedor_asignado_id,
+        fecha_asignacion: dataCotizacion.fecha_asignacion,
+        fecha_finalizacion: dataCotizacion.fecha_finalizacion
     }, {
         where: {
             id: id
