@@ -1,6 +1,8 @@
 const { Sequelize, Model, DataTypes } = require("sequelize")
 
 const sequelize = require('../db/connection'); // Importar la conexión
+const Carrito = require('../model/carrito.model');
+const User_afa = require('../model/user.model')
 
 class CotizacionWeb extends Model{}
 
@@ -9,6 +11,14 @@ CotizacionWeb.init({
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
+    },
+    carrito_id:{
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: Carrito, 
+            key: 'carrito_id'
+        }
     },
     periodo: {
         type: DataTypes.STRING,
@@ -90,9 +100,13 @@ CotizacionWeb.init({
         allowNull: false,
         defaultValue: 'PENDIENTE' // Valores posibles: PENDIENTE, EN_PROCESO, FINALIZADO
     },
-    vendedor_asignado_id: {
-        type: DataTypes.STRING,
-        allowNull: true
+    user_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: User_afa, 
+            key: 'user_id'
+        }
     },
     fecha_asignacion: {
         type: DataTypes.DATE,
@@ -115,5 +129,10 @@ CotizacionWeb.beforeCreate(async (cotizacion, options) => {
     cotizacion.numero = lastCotizacion ? lastCotizacion.numero + 1 : 1;
 });
 
+CotizacionWeb.belongsTo(Carrito, { foreignKey: 'carrito_id' });
+Carrito.hasMany(CotizacionWeb, { foreignKey: 'carrito_id' });
+
+CotizacionWeb.belongsTo(User_afa, { foreignKey: 'user_id' });
+User_afa.hasMany(CotizacionWeb, { foreignKey: 'user_id' });
 
 module.exports = CotizacionWeb;

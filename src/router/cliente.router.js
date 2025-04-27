@@ -49,7 +49,7 @@ router.post("/cliente/", async (req, res) => {
     }
 });
 
-router.put("/cliente/cliente_id/", async (req, res) => {
+router.put("/cliente/:cliente_id/", async (req, res) => {
     const id = req.params.cliente_id;
     const dataCliente = req.body
     const clienteEdit = await Cliente.update({
@@ -76,7 +76,7 @@ router.put("/cliente/cliente_id/", async (req, res) => {
     })
 });
 
-router.delete("/cliente/cliente_id/", async (req, res) => {
+router.delete("/cliente/:cliente_id/", async (req, res) => {
     const id = req.params.cliente_id;
     const deleteCliente = await Cliente.destroy({
         where: {

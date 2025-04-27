@@ -28,7 +28,8 @@ router.post("/cotizacionw/", async (req, res) => {
     try {
         await CotizacionWeb.sync();
 
-        const { 
+        const {
+            carrito_id,
             periodo,
             serie,
             numero,
@@ -48,13 +49,14 @@ router.post("/cotizacionw/", async (req, res) => {
             productos,
             total_precio_productos,
             estado,
-            vendedor_asignado_id,
+            user_id,
             fecha_asignacion,
             fecha_finalizacion
         } = req.body;
 
         // Create the CotizacionWeb entry with the new structure
         const createCotizacion = await CotizacionWeb.create({
+            carrito_id,
             periodo,              // Periodo
             serie,
             numero,
@@ -74,7 +76,7 @@ router.post("/cotizacionw/", async (req, res) => {
             productos,            // Productos (en formato JSON)
             total_precio_productos, // Total del precio de los productos
             estado,
-            vendedor_asignado_id,
+            user_id,
             fecha_asignacion,
             fecha_finalizacion
         });
@@ -95,11 +97,11 @@ router.post("/cotizacionw/", async (req, res) => {
         });
     }
 });
-
 router.put("/cotizacionw/:id/", async (req, res) => {
     const id = req.params.id;
     const dataCotizacion = req.body
     const carritoEdit = await Carrito.update({
+        carrito_id: dataCotizacion.carrito_id,
         periodo: dataCotizacion.periodo,                // Update periodo
         serie: dataCotizacion.serie,
         numero: dataCotizacion.numero,
@@ -119,7 +121,7 @@ router.put("/cotizacionw/:id/", async (req, res) => {
         productos: dataCotizacion.productos,            // Update productos (JSON array)
         total_precio_productos: dataCotizacion.total_precio_productos,
         estado: dataCotizacion.estado,
-        vendedor_asignado_id: dataCotizacion.vendedor_asignado_id,
+        user_id: dataCotizacion.user_id,
         fecha_asignacion: dataCotizacion.fecha_asignacion,
         fecha_finalizacion: dataCotizacion.fecha_finalizacion
     }, {
