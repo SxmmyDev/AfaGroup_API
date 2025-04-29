@@ -98,7 +98,7 @@ CotizacionWeb.init({
     estado: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'PENDIENTE' // Valores posibles: PENDIENTE, EN_PROCESO, FINALIZADO
+        defaultValue: 'COTIZADO' // Valores posibles: PENDIENTE, EN_PROCESO, FINALIZADO
     },
     user_id: {
         type: DataTypes.UUID,
