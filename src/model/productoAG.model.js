@@ -23,6 +23,10 @@ productoAG.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    descripcion_producto: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     codigo_sunat :{
         type: DataTypes.STRING,
         allowNull: false,
@@ -49,6 +53,10 @@ productoAG.init({
     nombre_comercial: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    stock_actual: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
     stock_minimo: {
         type: DataTypes.INTEGER,

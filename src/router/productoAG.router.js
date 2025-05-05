@@ -42,12 +42,12 @@ router.post("/productoAG/", upload.single('imagen_url'), async (req, res) => {
     try {
         await ProductoAG.sync();
 
-        const {categoria_id, nombre_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_minimo,stock_maximo, peso, precio } = req.body;
+        const {categoria_id, nombre_producto, descripcion_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_actual, stock_minimo,stock_maximo, peso, precio } = req.body;
 
         const imagen_url = req.file ? `http://localhost:3000/uploads/${req.file.filename}` : null;
 
         const createProducto = await ProductoAG.create({
-            categoria_id, nombre_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_minimo,stock_maximo, peso, imagen_url, precio
+            categoria_id, nombre_producto, descripcion_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial,stock_actual,stock_minimo,stock_maximo, peso, imagen_url, precio
         });
 
         res.status(201).json({
@@ -64,33 +64,6 @@ router.post("/productoAG/", upload.single('imagen_url'), async (req, res) => {
         });
     }
 });
-
-// router.put("/productoAG/:producto_id/", async (req, res) => {
-//     const id = req.params.producto_id;
-//     const dataProducto = req.body
-//     const producto_edit = await ProductoAG.update({
-//         categoria_id: dataProducto.categoria_id,
-//         nombre_producto: dataProducto.nombre_producto,
-//         codigo_sunat: dataProducto.codigo_sunat,
-//         tipo_producto: dataProducto.tipo_producto,
-//         tipo_existencia: dataProducto.tipo_existencia,
-//         compra: dataProducto.compra,
-//         kardex: dataProducto.kardex,
-//         nombre_comercial: dataProducto.nombre_comercial,
-//         stock_minimo: dataProducto.stock_minimo,
-//         stock_maximo: dataProducto.stock_maximo,
-//         peso: dataProducto.peso
-//     }, {
-//         where: {
-//             producto_id: id
-//         }
-//     });
-//     res.status(200).json({
-//         ok: true,
-//         status: 200,
-//         body: producto_edit
-//     })
-// });
 
 router.put("/productoAG/:producto_id/", upload.single('imagen_url'), async (req, res) => {
     try {
@@ -114,12 +87,14 @@ router.put("/productoAG/:producto_id/", upload.single('imagen_url'), async (req,
         await ProductoAG.update({
             categoria_id: dataProducto.categoria_id,
             nombre_producto: dataProducto.nombre_producto,
+            descripcion_producto: dataProducto.descripcion_producto,
             codigo_sunat: dataProducto.codigo_sunat,
             tipo_producto: dataProducto.tipo_producto,
             tipo_existencia: dataProducto.tipo_existencia,
             compra: dataProducto.compra,
             kardex: dataProducto.kardex,
             nombre_comercial: dataProducto.nombre_comercial,
+            descripcion_producto: dataProducto.descripcion_producto,
             stock_minimo: dataProducto.stock_minimo,
             stock_maximo: dataProducto.stock_maximo,
             peso: dataProducto.peso,
