@@ -44,7 +44,7 @@ router.post("/productoAG/", upload.single('imagen_url'), async (req, res) => {
 
         const {categoria_id, nombre_producto, descripcion_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial, stock_actual, stock_minimo,stock_maximo, peso, precio } = req.body;
 
-        const imagen_url = req.file ? `http://localhost:3000/uploads/${req.file.filename}` : null;
+        const imagen_url = req.file ? `process.env.SERVER_URL/uploads/${req.file.filename}` : null;
 
         const createProducto = await ProductoAG.create({
             categoria_id, nombre_producto, descripcion_producto, codigo_sunat, tipo_producto, tipo_existencia,compra, kardex, nombre_comercial,stock_actual,stock_minimo,stock_maximo, peso, imagen_url, precio
