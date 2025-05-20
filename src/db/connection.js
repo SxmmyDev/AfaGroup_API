@@ -2,10 +2,9 @@
 const { Sequelize } = require('sequelize');
 
 // Configurar la conexión a la base de datos
-const sequelize = new Sequelize('api-afa', 'root', '', {
-    host: 'localhost',
+const sequelize = new Sequelize('mysql://root:YlNUItncLnBCTnNWiZWQjKVaUMlxxusW@metro.proxy.rlwy.net:41040/railway', {
     dialect: 'mysql',
-    port: 3306,
+    logging: false,
 });
 
 module.exports = sequelize;
