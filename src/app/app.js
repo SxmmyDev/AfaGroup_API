@@ -7,9 +7,12 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-    origin: 'https://appafagroup-ner5.vercel.app', // Permitir solo Angular
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: [
+    'http://localhost:4200',
+    'https://appafagroup-ner5.vercel.app'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 //muy importante
